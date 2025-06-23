@@ -1,0 +1,17 @@
+[
+  {
+    "schedule": "*/30 * * * *",
+    "task": "chat_auto_resolve",
+    "enabled": true
+  },
+  {
+    "schedule": "*/1 * * * *",
+    "task": "chat_auto_open",
+    "enabled": true
+  },
+  {
+    "schedule": "*/1 * * * *",
+    "task": "service_ami_events",
+    "enabled": true
+  }
+]

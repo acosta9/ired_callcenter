@@ -1,0 +1,130 @@
+basePath: /
+definitions:
+  models.ErrorResponse:
+    properties:
+      error: {}
+    type: object
+  models.ExtensionReq:
+    properties:
+      extension:
+        maxLength: 5
+        minLength: 4
+        type: string
+    required:
+    - extension
+    type: object
+  models.SuccessResponse:
+    properties:
+      notice:
+        type: string
+      record: {}
+    type: object
+host: 127.0.0.1:7006
+info:
+  contact:
+    email: juan9acosta@gmail.com
+    name: Juan Acosta
+    url: https://www.linkedin.com/in/juan-m-acosta-f-54219758/
+  description: service in Go using Gin framework
+  title: CallCenter Service API
+  version: "1.0"
+paths:
+  /ami/hangup-call:
+    post:
+      consumes:
+      - application/json
+      description: recibe un numero de extension y cuelga la llamada que tenga la
+        extension abierta
+      parameters:
+      - description: Extension Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.ExtensionReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BasicAuth: []
+      summary: Colgar llamada de una extension
+      tags:
+      - Ami
+  /cron/chat-auto-opened:
+    get:
+      consumes:
+      - application/json
+      description: run cron para cambiar estatus a por abrir de aquellos chats que
+        fueron marcados como pendientes por un agente y el ultimo mensaje recibido
+        fue del cliente
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BasicAuth: []
+      summary: Run the task chat_auto_opened
+      tags:
+      - Crons
+  /cron/chat-autoresolve:
+    get:
+      consumes:
+      - application/json
+      description: run cron to autoResolve chats
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BasicAuth: []
+      summary: Run the task chat_auto_resolve
+      tags:
+      - Crons
+  /grafana/get-extension-status:
+    get:
+      consumes:
+      - application/json
+      description: get the extension status of all extension of agents in call center
+        using AMI connection to asterisk
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      security:
+      - BasicAuth: []
+      summary: Get Extension Status from PBX
+      tags:
+      - Grafana
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

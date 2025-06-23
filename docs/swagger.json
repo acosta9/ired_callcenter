@@ -1,0 +1,199 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "service in Go using Gin framework",
+        "title": "CallCenter Service API",
+        "contact": {
+            "name": "Juan Acosta",
+            "url": "https://www.linkedin.com/in/juan-m-acosta-f-54219758/",
+            "email": "juan9acosta@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "host": "127.0.0.1:7006",
+    "basePath": "/",
+    "paths": {
+        "/ami/hangup-call": {
+            "post": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "description": "recibe un numero de extension y cuelga la llamada que tenga la extension abierta",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Ami"
+                ],
+                "summary": "Colgar llamada de una extension",
+                "parameters": [
+                    {
+                        "description": "Extension Data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.ExtensionReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/cron/chat-auto-opened": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "description": "run cron para cambiar estatus a por abrir de aquellos chats que fueron marcados como pendientes por un agente y el ultimo mensaje recibido fue del cliente",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Crons"
+                ],
+                "summary": "Run the task chat_auto_opened",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/cron/chat-autoresolve": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "description": "run cron to autoResolve chats",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Crons"
+                ],
+                "summary": "Run the task chat_auto_resolve",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/grafana/get-extension-status": {
+            "get": {
+                "security": [
+                    {
+                        "BasicAuth": []
+                    }
+                ],
+                "description": "get the extension status of all extension of agents in call center using AMI connection to asterisk",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Grafana"
+                ],
+                "summary": "Get Extension Status from PBX",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.SuccessResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "error": {}
+            }
+        },
+        "models.ExtensionReq": {
+            "type": "object",
+            "required": [
+                "extension"
+            ],
+            "properties": {
+                "extension": {
+                    "type": "string",
+                    "maxLength": 5,
+                    "minLength": 4
+                }
+            }
+        },
+        "models.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "notice": {
+                    "type": "string"
+                },
+                "record": {}
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
+    }
+}

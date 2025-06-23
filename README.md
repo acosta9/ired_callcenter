@@ -25,6 +25,13 @@ Calidad y Mantenibilidad del Código:
 * API Documentada: El uso de swagger para generar documentación a partir de comentarios demuestra un compromiso con la creación de APIs fáciles de consumir y mantener.
 * Estructura del Proyecto: La separación en paquetes (controllers, repo, models, app) es clara y facilita la navegación y la adición de nuevas funcionalidades.
 
+### Estatus en tiempo real del callcenter a travès de grafana, esta info es posible mostrarla en grafana debido al servicio construido que permite extraer en tiempo real la informacion de las extensiones, colas de llamadas, y operadores  
+![Screenshot From 2025-06-23 10-50-01](https://github.com/user-attachments/assets/b4c52653-7ad4-4f83-839a-af5d876bc9cb)
+
+### Gestion Operativa del callcenter, despliegue de indicadores del callcenter.
+![screencapture-grafana-bessersolutions-d-bel2ruzz561vkf-central-telefonica-indicadores-de-gestion-2025-06-23-10_51_32](https://github.com/user-attachments/assets/6e1a1fb6-c648-4250-bfb0-9af914be7652)
+
+
 ### this project contains the next tasks ###
 * project to handle all call center related tasks
 * cron for autoOpen and autoResolve chats in chatWoot
